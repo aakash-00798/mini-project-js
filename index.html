@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>10 Mini JavaScript Projects</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .tabs {
+      display: flex;
+      background: #222;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 18px 0;
+      color: #fff;
+      background: #222;
+      border: none;
+      cursor: pointer;
+      font-size: 17px;
+      letter-spacing: 1px;
+      transition: background 0.2s, color 0.2s;
+      outline: none;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: #4CAF50;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+    }
+    .tab-content {
+      display: none;
+      padding: 40px 30px 30px 30px;
+      background: #fff;
+      min-height: 420px;
+      max-width: 500px;
+      margin: 30px auto 0 auto;
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(44,62,80,0.13);
+      animation: fadeIn 0.5s;
+    }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+    }
+    input[type="number"], input[type="text"], input[type="password"], input[type="email"] {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #bdbdbd;
+      font-size: 16px;
+      margin-bottom: 10px;
+      width: 70%;
+      box-sizing: border-box;
+      transition: border 0.2s;
+    }
+    input[type="number"]:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+      border: 1.5px solid #4CAF50;
+      outline: none;
+    }
+    button, .rps-btn {
+      padding: 10px 22px;
+      margin: 10px 5px 0 0;
+      background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+      color: #222;
+      border: none;
+      border-radius: 7px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    button:hover, .rps-btn:hover {
+      background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+      color: #111;
+      box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+    }
+    .todo-list {
+      margin-top: 18px;
+      padding-left: 0;
+    }
+    .todo-list li {
+      background: #f1f8e9;
+      margin: 8px 0;
+      padding: 12px 14px;
+      border-radius: 7px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: 1px solid #e0e0e0;
+    }
+    .todo-list li.completed {
+      text-decoration: line-through;
+      color: #888;
+      background: #e0e0e0;
+    }
+    .todo-list button {
+      background: #ff5252;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      font-size: 16px;
+      margin: 0;
+      box-shadow: none;
+      transition: background 0.2s;
+    }
+    .todo-list button:hover {
+      background: #e53935;
+    }
+    .dice-img {
+      width: 60px;
+      margin-top: 10px;
+      vertical-align: middle;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.09);
+      background: #f8fafc;
+      border: 1px solid #e0e0e0;
+    }
+    .color-preview {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      border: 1.5px solid #bdbdbd;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 15px;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+    }
+    .calculator input[type="text"] {
+      width: 220px;
+      padding: 10px;
+      font-size: 20px;
+      margin-bottom: 12px;
+      border-radius: 7px;
+      border: 1.5px solid #bdbdbd;
+      background: #f8fafc;
+      text-align: right;
+      letter-spacing: 1px;
+    }
+    .calculator button {
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      margin: 3px;
+      border-radius: 7px;
+      background: #e3fcec;
+      color: #222;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+    }
+    .calculator button:hover {
+      background: #b2f7ef;
+      color: #111;
+    }
+    .quote-box {
+      font-size: 19px;
+      margin-bottom: 18px;
+      color: #333;
+      background: #e3fcec;
+      border-radius: 7px;
+      padding: 18px 16px;
+      box-shadow: 0 2px 8px rgba(44,62,80,0.07);
+      min-height: 60px;
+      text-align: center;
+    }
+    #clock, #countdown {
+      font-size: 2.2em;
+      text-align: center;
+      color: #222;
+      letter-spacing: 2px;
+      margin: 20px 0;
+      font-weight: 600;
+    }
+    #guessMsg, #formMsg, #diceNum, #rpsResult {
+      font-size: 1.1em;
+      margin-top: 12px;
+      color: #1976d2;
+      min-height: 24px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .tab-content { padding: 18px 5px; min-height: 300px; }
+      .tabs { flex-wrap: wrap; }
+      .tab-btn { font-size: 13px; padding: 10px 0; }
+      .calculator input[type="text"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab(0)">Guess Number</button>
+    <button class="tab-btn" onclick="showTab(1)">Digital Clock</button>
+    <button class="tab-btn" onclick="showTab(2)">To-Do List</button>
+    <button class="tab-btn" onclick="showTab(3)">Calculator</button>
+    <button class="tab-btn" onclick="showTab(4)">Color Picker</button>
+    <button class="tab-btn" onclick="showTab(5)">Form Validation</button>
+    <button class="tab-btn" onclick="showTab(6)">Quote Generator</button>
+    <button class="tab-btn" onclick="showTab(7)">Countdown Timer</button>
+    <button class="tab-btn" onclick="showTab(8)">Dice Roller</button>
+    <button class="tab-btn" onclick="showTab(9)">Rock Paper Scissors</button>
+  </div>
+
+  <!-- 1. Number Guessing Game -->
+  <div class="tab-content active">
+    <h2>Number Guessing Game</h2>
+    <p>Guess a number between 1 and 100:</p>
+    <input type="number" id="guessInput" min="1" max="100" placeholder="Enter your guess">
+    <button onclick="checkGuess()">Guess</button>
+    <p id="guessMsg"></p>
+    <button onclick="resetGuessGame()" style="background:#ffb347;color:#222;">Restart</button>
+  </div>
+
+  <!-- 2. Digital Clock -->
+  <div class="tab-content">
+    <h2>Digital Clock</h2>
+    <h1 id="clock"></h1>
+  </div>
+
+  <!-- 3. To-Do List -->
+  <div class="tab-content">
+    <h2>To-Do List</h2>
+    <input type="text" id="todoInput" placeholder="Add a task">
+    <button onclick="addTodo()">Add</button>
+    <ul id="todoList" class="todo-list"></ul>
+  </div>
+
+  <!-- 4. Simple Calculator -->
+  <div class="tab-content">
+    <h2>Simple Calculator</h2>
+    <div class="calculator">
+      <input type="text" id="calcDisplay" readonly>
+      <br>
+      <button onclick="calcInput('7')">7</button>
+      <button onclick="calcInput('8')">8</button>
+      <button onclick="calcInput('9')">9</button>
+      <button onclick="calcInput('/')">/</button><br>
+      <button onclick="calcInput('4')">4</button>
+      <button onclick="calcInput('5')">5</button>
+      <button onclick="calcInput('6')">6</button>
+      <button onclick="calcInput('')"></button><br>
+      <button onclick="calcInput('1')">1</button>
+      <button onclick="calcInput('2')">2</button>
+      <button onclick="calcInput('3')">3</button>
+      <button onclick="calcInput('-')">-</button><br>
+      <button onclick="calcInput('0')">0</button>
+      <button onclick="calcInput('.')">.</button>
+      <button onclick="calcResult()">=</button>
+      <button onclick="calcInput('+')">+</button><br>
+      <button onclick="calcClear()" style="background:#ffb347;">C</button>
+    </div>
+  </div>
+
+  <!-- 5. Color Picker App -->
+  <div class="tab-content">
+    <h2>Color Picker</h2>
+    <input type="color" id="colorInput" value="#4CAF50" style="width:60px;height:40px;vertical-align:middle;">
+    <span class="color-preview" id="colorPreview"></span>
+  </div>
+
+  <!-- 6. Form Validation -->
+  <div class="tab-content">
+    <h2>Form Validation</h2>
+    <form id="validateForm" onsubmit="return validateFormFunc()">
+      <label>Email:<br> <input type="email" id="email" placeholder="your@email.com"></label><br><br>
+      <label>Password:<br> <input type="password" id="password" placeholder="At least 6 characters"></label><br><br>
+      <button type="submit">Submit</button>
+    </form>
+    <p id="formMsg"></p>
+  </div>
+
+  <!-- 7. Random Quote Generator -->
+  <div class="tab-content">
+    <h2>Random Quote Generator</h2>
+    <div class="quote-box" id="quoteBox"></div>
+    <button onclick="showQuote()">Show Quote</button>
+  </div>
+
+  <!-- 8. Countdown Timer -->
+  <div class="tab-content">
+    <h2>Countdown Timer (to New Year)</h2>
+    <h1 id="countdown"></h1>
+  </div>
+
+  <!-- 9. Dice Roller -->
+  <div class="tab-content">
+    <h2>Dice Roller</h2>
+    <button onclick="rollDice()">Roll Dice</button>
+    <div style="margin-top:15px;">
+      <img id="diceImg" class="dice-img" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Dice-1-b.svg" alt="Dice">
+      <span id="diceNum"></span>
+    </div>
+  </div>
+
+  <!-- 10. Rock-Paper-Scissors Game -->
+  <div class="tab-content">
+    <h2>Rock-Paper-Scissors</h2>
+    <button class="rps-btn" onclick="playRPS('rock')">Rock</button>
+    <button class="rps-btn" onclick="playRPS('paper')">Paper</button>
+    <button class="rps-btn" onclick="playRPS('scissors')">Scissors</button>
+    <p id="rpsResult"></p>
+  </div>
+
+   <script>
+    // Tab logic
+    function showTab(idx) {
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === idx));
+      document.querySelectorAll('.tab-content').forEach((tab, i) => tab.classList.toggle('active', i === idx));
+    }
+
+    // 1. Number Guessing Game
+    let secretNum = Math.floor(Math.random() * 100) + 1;
+    function checkGuess() {
+      const guess = Number(document.getElementById('guessInput').value);
+      const msg = document.getElementById('guessMsg');
+      if (!guess || guess < 1 || guess > 100) {
+        msg.textContent = "Enter a number between 1 and 100.";
+        msg.style.color = "#e53935";
+      } else if (guess < secretNum) {
+        msg.textContent = "Too Low!";
+        msg.style.color = "#1976d2";
+      } else if (guess > secretNum) {
+        msg.textContent = "Too High!";
+        msg.style.color = "#1976d2";
+      } else {
+        msg.textContent = "Correct! 🎉";
+        msg.style.color = "#43a047";
+      }
+    }
+    function resetGuessGame() {
+      secretNum = Math.floor(Math.random() * 100) + 1;
+      document.getElementById('guessInput').value = '';
+      const msg = document.getElementById('guessMsg');
+      msg.textContent = '';
+      msg.style.color = "#1976d2";
+    }
+
+    // 2. Digital Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 3. To-Do List
+    let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    function renderTodos() {
+      const ul = document.getElementById('todoList');
+      ul.innerHTML = '';
+      todos.forEach((todo, i) => {
+        const li = document.createElement('li');
+        li.textContent = todo.text;
+        if (todo.done) li.classList.add('completed');
+        li.onclick = () => { todos[i].done = !todos[i].done; saveTodos(); };
+        const del = document.createElement('button');
+        del.textContent = '❌';
+        del.onclick = (e) => { e.stopPropagation(); todos.splice(i, 1); saveTodos(); };
+        li.appendChild(del);
+        ul.appendChild(li);
+      });
+    }
+    function addTodo() {
+      const input = document.getElementById('todoInput');
+      if (input.value.trim()) {
+        todos.push({ text: input.value, done: false });
+        saveTodos();
+        input.value = '';
+      }
+    }
+    function saveTodos() {
+      localStorage.setItem('todos', JSON.stringify(todos));
+      renderTodos();
+    }
+    renderTodos();
+
+    // 4. Calculator
+    let calcStr = '';
+    function calcInput(val) {
+      calcStr += val;
+      document.getElementById('calcDisplay').value = calcStr;
+    }
+    function calcResult() {
+      try {
+        calcStr = eval(calcStr).toString();
+      } catch {
+        calcStr = 'Error';
+      }
+      document.getElementById('calcDisplay').value = calcStr;
+    }
+    function calcClear() {
+      calcStr = '';
+      document.getElementById('calcDisplay').value = '';
+    }
+
+    // 5. Color Picker
+    const colorInput = document.getElementById('colorInput');
+    const colorPreview = document.getElementById('colorPreview');
+    function updateColorPreview() {
+      colorPreview.style.background = colorInput.value;
+    }
+    colorInput.addEventListener('input', updateColorPreview);
+    updateColorPreview();
+
+    // 6. Form Validation
+    function validateFormFunc() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('formMsg');
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        msg.textContent = "Invalid email address.";
+        msg.style.color = "#e53935";
+        return false;
+      }
+      if (password.length < 6) {
+        msg.textContent = "Password must be at least 6 characters.";
+        msg.style.color = "#e53935";
+        return false;
+      }
+      msg.textContent = "Form submitted successfully!";
+      msg.style.color = "#43a047";
+      return false; // Prevent submission for demo
+    }
+
+    // 7. Quote Generator
+    const quotes = [
+      "The best way to get started is to quit talking and begin doing. – Walt Disney",
+      "Don’t let yesterday take up too much of today. – Will Rogers",
+      "It’s not whether you get knocked down, it’s whether you get up. – Vince Lombardi",
+      "If you are working on something exciting, it will keep you motivated. – Steve Jobs",
+      "Success is not in what you have, but who you are. – Bo Bennett"
+    ];
+    function showQuote() {
+      const idx = Math.floor(Math.random() * quotes.length);
+      document.getElementById('quoteBox').textContent = quotes[idx];
+    }
+    showQuote();
+
+    // 8. Countdown Timer
+    function updateCountdown() {
+      const now = new Date();
+      const nextYear = new Date(now.getFullYear() + 1, 0, 1);
+      const diff = nextYear - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      document.getElementById('countdown').textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 9. Dice Roller
+    function rollDice() {
+      const num = Math.floor(Math.random() * 6) + 1;
+      document.getElementById('diceNum').textContent = `You rolled: ${num}`;
+      document.getElementById('diceImg').src = `https://upload.wikimedia.org/wikipedia/commons/${['1/1b/Dice-1-b.svg','5/5f/Dice-2-b.svg','b/b1/Dice-3-b.svg','f/fd/Dice-4-b.svg','0/08/Dice-5-b.svg','2/26/Dice-6-b.svg'][num - 1]}`;
+    }
+
+    // 10. Rock-Paper-Scissors
+    function playRPS(user) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const comp = choices[Math.floor(Math.random() * 3)];
+      let result = '';
+      if (user === comp) result = "It's a draw!";
+      else if (
+        (user === 'rock' && comp === 'scissors') ||
+        (user === 'paper' && comp === 'rock') ||
+        (user === 'scissors' && comp === 'paper')
+      ) result = `You win! Computer chose ${comp}.`;
+      else result = `You lose! Computer chose ${comp}.`;
+      document.getElementById('rpsResult').textContent = result;
+    }
+  </script>
+</body>
+</html>
